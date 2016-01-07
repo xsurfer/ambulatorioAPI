@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from anagrafica.fields import ITSocialSecurityNumberField
 from .relations import VisiteCustomHyperlinkedRelatedField, VisiteCustomHyperlinkedIdentityField
 from .models import Paziente, Visita
 
@@ -16,6 +17,7 @@ class PazienteSerializer(serializers.HyperlinkedModelSerializer):
 
 class PazienteDetailSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    codice_fiscale = ITSocialSecurityNumberField()
     # visite = VisiteCustomHyperlinkedRelatedField(many=True, view_name='visite-detail')
     paziente_url = serializers.HyperlinkedIdentityField(view_name='pazienti-detail')
     visite_url = serializers.HyperlinkedIdentityField(view_name='visite-list')
@@ -23,8 +25,8 @@ class PazienteDetailSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Paziente
         fields = (
-            'id', 'nome', 'cognome', 'sesso', 'data_nascita', 'nazionalita', 'indirizzo_residenza', 'comune_residenza',
-            'telefono', 'cellulare', 'email', 'profilo', 'owner', 'visite_url', 'paziente_url')
+            'id', 'nome', 'cognome', 'sesso', 'codice_fiscale', 'data_nascita', 'nazionalita', 'indirizzo_residenza', 'comune_residenza',
+            'telefono', 'cellulare', 'email', 'profilo', 'esenzioni' , 'owner', 'visite_url', 'paziente_url')
 
 
 class VisitaSerializer(serializers.ModelSerializer):
