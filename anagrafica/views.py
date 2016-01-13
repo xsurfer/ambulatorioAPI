@@ -63,6 +63,12 @@ class VisitaList(generics.ListCreateAPIView):
     def get_paziente_id(self):
         return self.kwargs.get('pk', None)
 
+    def perform_create(self, serializer):
+        owner = User.objects.get(pk=1)
+        paziente = Paziente.objects.get(pk=self.get_paziente_id())
+        serializer.save(owner=owner, paziente=paziente)
+        #serializer.save(owner=self.request.user)
+
     def get_queryset(self):
         return Paziente.objects.visitePerPaziente(self.get_paziente_id())
 

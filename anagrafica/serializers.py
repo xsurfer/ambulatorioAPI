@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from anagrafica.fields import ITSocialSecurityNumberField
-from .relations import VisiteCustomHyperlinkedRelatedField, VisiteCustomHyperlinkedIdentityField
+from .relations import VisiteCustomHyperlinkedRelatedField, VisiteCustomHyperlinkedIdentityField, \
+    PazientiCustomHyperlinkedIdentityField
 from .models import Paziente, Visita
 
 
@@ -31,7 +32,7 @@ class PazienteDetailSerializer(serializers.HyperlinkedModelSerializer):
 
 class VisitaSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    paziente_url = serializers.HyperlinkedIdentityField(view_name='pazienti-detail')
+    paziente_url = PazientiCustomHyperlinkedIdentityField(view_name='pazienti-detail')
     visita_url = VisiteCustomHyperlinkedIdentityField(view_name='visite-detail', read_only=False)
 
     class Meta:
@@ -41,7 +42,7 @@ class VisitaSerializer(serializers.ModelSerializer):
 
 class VisitaDetailSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    paziente_url = serializers.HyperlinkedIdentityField(view_name='pazienti-detail')
+    paziente_url = PazientiCustomHyperlinkedIdentityField(view_name='pazienti-detail')
     visita_url = VisiteCustomHyperlinkedIdentityField(view_name='visite-detail', read_only=False)
 
     class Meta:
