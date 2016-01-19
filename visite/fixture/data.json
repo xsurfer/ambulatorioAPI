@@ -1,0 +1,17 @@
+[
+   {
+      "model":"visite.visita",
+      "pk":1,
+      "fields":{
+         "created":"2016-01-08T23:38:08.171Z",
+         "owner":1,
+         "anamnesi":"aaa",
+         "esame_obiettivo":"bbb",
+         "esame_strumentale":"ccc",
+         "diagnosi":"ddd",
+         "terapia":"eee",
+         "paziente":8,
+         "data_visita":"2016-01-07"
+      }
+   }
+]

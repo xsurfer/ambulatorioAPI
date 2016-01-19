@@ -46,6 +46,11 @@ INSTALLED_APPS = [
     'localflavor',
 
     'anagrafica',
+    'visite',
+    'gruppi_sanguigni',
+    'esami',
+    'antropometria',
+    'vaccinazioni',
 ]
 
 MIDDLEWARE_CLASSES = [

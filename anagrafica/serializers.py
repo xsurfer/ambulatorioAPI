@@ -1,8 +1,8 @@
 from rest_framework import serializers
+
 from anagrafica.fields import ITSocialSecurityNumberField
-from .relations import VisiteCustomHyperlinkedRelatedField, VisiteCustomHyperlinkedIdentityField, \
-    PazientiCustomHyperlinkedIdentityField
-from .models import Paziente, Visita
+from .models import Paziente
+from visite.relations import VisiteCustomHyperlinkedIdentityField
 
 
 class PazienteSerializer(serializers.HyperlinkedModelSerializer):
@@ -29,23 +29,3 @@ class PazienteDetailSerializer(serializers.HyperlinkedModelSerializer):
             'id', 'nome', 'cognome', 'sesso', 'codice_fiscale', 'data_nascita', 'nazionalita', 'indirizzo_residenza', 'comune_residenza',
             'telefono', 'cellulare', 'email', 'profilo', 'esenzioni' , 'owner', 'visite_url', 'paziente_url')
 
-
-class VisitaSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
-    paziente_url = PazientiCustomHyperlinkedIdentityField(view_name='pazienti-detail')
-    visita_url = VisiteCustomHyperlinkedIdentityField(view_name='visite-detail', read_only=False)
-
-    class Meta:
-        model = Visita
-        fields = ('id', 'data_visita', 'owner', 'paziente_url', 'visita_url')
-
-
-class VisitaDetailSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
-    paziente_url = PazientiCustomHyperlinkedIdentityField(view_name='pazienti-detail')
-    visita_url = VisiteCustomHyperlinkedIdentityField(view_name='visite-detail', read_only=False)
-
-    class Meta:
-        model = Visita
-        fields = ('id', 'anamnesi', 'esame_obiettivo', 'esame_strumentale', 'diagnosi', 'terapia', 'owner',
-                  'data_visita', 'paziente_url', 'visita_url')
